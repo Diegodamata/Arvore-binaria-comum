@@ -21,7 +21,9 @@ public class Main {
         Scanner sc = new Scanner(System.in);
 
         No<String> raiz = inserirNaArvore(sc);
-        
+
+        preOrdem(raiz);
+
         sc.close();
     }
 
@@ -44,5 +46,12 @@ public class Main {
         no.setDireita(inserirNaArvore(sc));
 
         return no;
+    }
+
+    public static void preOrdem(No<String> no){
+        if (no == null) return;
+        System.out.println(no.getValor());
+        preOrdem(no.getEsquerda());
+        preOrdem(no.getDireita());
     }
 }
