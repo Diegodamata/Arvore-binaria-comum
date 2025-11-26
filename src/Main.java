@@ -22,7 +22,11 @@ public class Main {
 
         No<String> raiz = inserirNaArvore(sc);
 
+        System.out.println("Imprimindo arvore utilizando o percurso preOrdem:");
         preOrdem(raiz);
+
+        System.out.println("Imprimindo arvore utilizando o percurso emOrdem:");
+        emOrdem(raiz);
 
         sc.close();
     }
@@ -53,5 +57,14 @@ public class Main {
         System.out.println(no.getValor());
         preOrdem(no.getEsquerda());
         preOrdem(no.getDireita());
+    }
+
+    public static void emOrdem(No<String> no){
+        if (no == null) return;
+        emOrdem(no.getEsquerda());
+        System.out.println(no.getValor());
+        if (no.getDireita() != null){
+            System.out.println(no.getDireita().getValor());
+        }
     }
 }
