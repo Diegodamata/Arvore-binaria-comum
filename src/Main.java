@@ -1,0 +1,48 @@
+package src;
+
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        //Arvore binaria comum
+        //
+        //objetivo:
+        //
+        //inserção
+        //
+        //percursos (pré, in, pós)
+        //
+        //impressão visual da árvore
+        //
+        //busca
+        //
+        //remoção
+
+        Scanner sc = new Scanner(System.in);
+
+        No<String> raiz = inserirNaArvore(sc);
+        
+        sc.close();
+    }
+
+    public static No<String> inserirNaArvore(Scanner sc){
+        System.out.print("Criar árvore binária comum? (1 - Sim / 2 - Não): ");
+        int opc = sc.nextInt();
+
+        if (opc == 2) return null;
+
+        System.out.print("Informe o valor: ");
+        String valor = sc.next();
+
+        No<String> no = new No<>();
+        no.setValor(valor);
+
+        System.out.println("Deseja criar um nó para a esquerda do valor: " + valor + "?");
+        no.setEsquerda(inserirNaArvore(sc));
+
+        System.out.println("Deseja criar um nó para a direita do valor: " + valor + "?");
+        no.setDireita(inserirNaArvore(sc));
+
+        return no;
+    }
+}
