@@ -28,10 +28,13 @@ public class Main {
         System.out.println("Imprimindo arvore utilizando o percurso emOrdem:");
         emOrdem(raiz);
 
+        System.out.println("Imprimindo arvore utilizando o percurso posOrdem:");
+        posOrdem(raiz);
+
         sc.close();
     }
 
-    public static No<String> inserirNaArvore(Scanner sc){
+    public static No<String> inserirNaArvore(Scanner sc) {
         System.out.print("Criar árvore binária comum? (1 - Sim / 2 - Não): ");
         int opc = sc.nextInt();
 
@@ -52,19 +55,24 @@ public class Main {
         return no;
     }
 
-    public static void preOrdem(No<String> no){
+    public static void preOrdem(No<String> no) {
         if (no == null) return;
         System.out.println(no.getValor());
         preOrdem(no.getEsquerda());
         preOrdem(no.getDireita());
     }
 
-    public static void emOrdem(No<String> no){
+    public static void emOrdem(No<String> no) {
         if (no == null) return;
         emOrdem(no.getEsquerda());
         System.out.println(no.getValor());
-        if (no.getDireita() != null){
-            System.out.println(no.getDireita().getValor());
-        }
+        emOrdem(no.getDireita());
+    }
+
+    public static void posOrdem(No<String> no) {
+        if (no == null) return;
+        posOrdem(no.getEsquerda());
+        posOrdem(no.getDireita());
+        System.out.println(no.getValor());
     }
 }
