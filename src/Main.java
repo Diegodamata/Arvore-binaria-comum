@@ -3,7 +3,7 @@ package src;
 import java.util.Scanner;
 
 public class Main {
-    static int esquerda = 0, direita = 0;
+    static int esquerda = 0, direita = 0, folhas = 0;
     public static void main(String[] args) {
         //Arvore binaria comum
         //
@@ -37,7 +37,7 @@ public class Main {
         posOrdem(raiz);
 
         System.out.println("Quantidade de nó que a arvore possui: " + quantidadeNos(raiz));
-
+        System.out.println("Quantidade de nó que a arvore possui: " + quantidadeFolhas(raiz));
         sc.close();
     }
 
@@ -97,5 +97,23 @@ public class Main {
         }
 
         return esquerda + direita + 1;
+    }
+
+    public static int quantidadeFolhas(No<String> no) {
+        if (no == null) return 0;
+
+        if (no.getEsquerda() != null) {
+            quantidadeFolhas(no.getEsquerda());
+        }
+
+        if (no.getDireita() != null){
+            quantidadeFolhas(no.getDireita());
+        }
+
+        if (no.getEsquerda() == null && no.getDireita() == null){
+            folhas++;
+        }
+
+        return folhas;
     }
 }
