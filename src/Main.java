@@ -3,7 +3,7 @@ package src;
 import java.util.Scanner;
 
 public class Main {
-    static int esquerda = 0, direita = 0, folhas = 0;
+    static int esquerda = 0, direita = 0, folhas = 0, aux = 0;
     public static void main(String[] args) {
         //Arvore binaria comum
         //
@@ -38,6 +38,18 @@ public class Main {
 
         System.out.println("Quantidade de nó que a arvore possui: " + quantidadeNos(raiz));
         System.out.println("Quantidade de nó que a arvore possui: " + quantidadeFolhas(raiz));
+
+        System.out.print("Informe o valor que deseja buscar na arvore: ");
+        String valor = sc.next();
+
+        int resultado = buscarValor(raiz, valor);
+        if (resultado == 1){
+            System.out.print("Valor encontrado");
+        }
+        else {
+            System.out.print("Valor não encontrado");
+        }
+
         sc.close();
     }
 
@@ -115,5 +127,21 @@ public class Main {
         }
 
         return folhas;
+    }
+
+    public static int buscarValor(No<String> no, String valor) {
+        if (no == null) return 0;
+
+        if (no.getValor().equals(valor)){
+            aux++;
+        }
+        if(no.getEsquerda() != null){
+            buscarValor(no.getEsquerda(), valor);
+        }
+        if (no.getDireita() != null){
+            buscarValor(no.getDireita(), valor);
+        }
+
+        return aux;
     }
 }
