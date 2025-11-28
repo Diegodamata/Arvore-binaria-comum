@@ -3,6 +3,7 @@ package src;
 import java.util.Scanner;
 
 public class Main {
+    static int esquerda = 0, direita = 0;
     public static void main(String[] args) {
         //Arvore binaria comum
         //
@@ -12,11 +13,15 @@ public class Main {
         //
         //percursos (pré, in, pós)
         //
-        //impressão visual da árvore
+        //impressão visual da árvore(nivel)
         //
         //busca
         //
         //remoção
+        //altura da arvore
+        //contar nós
+        //contar folhas
+        //profundidade de um nó
 
         Scanner sc = new Scanner(System.in);
 
@@ -31,6 +36,8 @@ public class Main {
         System.out.println("Imprimindo arvore utilizando o percurso posOrdem:");
         posOrdem(raiz);
 
+        System.out.println("Quantidade de nó que a arvore possui: " + quantidadeNos(raiz));
+
         sc.close();
     }
 
@@ -42,7 +49,6 @@ public class Main {
 
         System.out.print("Informe o valor: ");
         String valor = sc.next();
-
         No<String> no = new No<>();
         no.setValor(valor);
 
@@ -74,5 +80,22 @@ public class Main {
         posOrdem(no.getEsquerda());
         posOrdem(no.getDireita());
         System.out.println(no.getValor());
+    }
+
+
+    public static int quantidadeNos(No<String> no) {
+        if (no == null) return 0;
+
+        if (no.getEsquerda() != null) {
+            esquerda++;
+            quantidadeNos(no.getEsquerda());
+        }
+
+        if (no.getDireita() != null) {
+            direita++;
+            quantidadeNos(no.getDireita());
+        }
+
+        return esquerda + direita + 1;
     }
 }
