@@ -3,7 +3,7 @@ package src;
 import java.util.Scanner;
 
 public class Main {
-    static int esquerda = 0, direita = 0, folhas = 0, aux = 0;
+    static int esquerda = 0, direita = 0,  alturaEsq = 0, alturaDir = 0;
     public static void main(String[] args) {
         //Arvore binaria comum
         //
@@ -36,19 +36,22 @@ public class Main {
         System.out.println("Imprimindo arvore utilizando o percurso posOrdem:");
         posOrdem(raiz);
 
-        System.out.println("Quantidade de nó que a arvore possui: " + quantidadeNos(raiz));
-        System.out.println("Quantidade de nó que a arvore possui: " + quantidadeFolhas(raiz));
+        System.out.println("Quantidade de nós que a arvore possui: " + quantidadeNos(raiz));
+        System.out.println("Quantidade de folhas que a arvore possui: " + quantidadeFolhas(raiz));
 
         System.out.print("Informe o valor que deseja buscar na arvore: ");
         String valor = sc.next();
 
-        int resultado = buscarValor(raiz, valor);
-        if (resultado == 1){
-            System.out.print("Valor encontrado");
-        }
-        else {
-            System.out.print("Valor não encontrado");
-        }
+
+          if (buscarValor(raiz, "E")) {
+            System.out.println("Valor encontrado!");
+          }
+          else{
+            System.out.println("Valor não encontrado!");
+          }
+
+        System.out.print("Altura da arvore: " + alturaArvore(raiz));
+
 
         sc.close();
     }
@@ -96,17 +99,10 @@ public class Main {
 
 
     public static int quantidadeNos(No<String> no) {
-        if (no == null) return 0;
+        if(no == null) return 0;
 
-        if (no.getEsquerda() != null) {
-            esquerda++;
-            quantidadeNos(no.getEsquerda());
-        }
-
-        if (no.getDireita() != null) {
-            direita++;
-            quantidadeNos(no.getDireita());
-        }
+        esquerda = quantidadeNos(no.getEsquerda());
+        direita = quantidadeNos(no.getDireita());
 
         return esquerda + direita + 1;
     }
@@ -114,34 +110,37 @@ public class Main {
     public static int quantidadeFolhas(No<String> no) {
         if (no == null) return 0;
 
-        if (no.getEsquerda() != null) {
-            quantidadeFolhas(no.getEsquerda());
-        }
-
-        if (no.getDireita() != null){
-            quantidadeFolhas(no.getDireita());
-        }
-
         if (no.getEsquerda() == null && no.getDireita() == null){
-            folhas++;
+            return 1;
         }
 
-        return folhas;
+        return quantidadeFolhas(no.getEsquerda()) + quantidadeFolhas(no.getDireita());
     }
 
-    public static int buscarValor(No<String> no, String valor) {
-        if (no == null) return 0;
+    public static boolean buscarValor(No<String> no, String valor) {
+        if (no == null) return false;
 
         if (no.getValor().equals(valor)){
-            aux++;
-        }
-        if(no.getEsquerda() != null){
-            buscarValor(no.getEsquerda(), valor);
-        }
-        if (no.getDireita() != null){
-            buscarValor(no.getDireita(), valor);
+            return true;
         }
 
-        return aux;
+        if (buscarValor(no.getEsquerda(), valor)){
+            return true;
+        }
+
+        if (buscarValor(no.getDireita(), valor)){
+            return true;
+        }
+
+        return false;
+    }
+
+    public static int alturaArvore(No<String> no){
+        if (no == null) return 0;
+
+        alturaEsq = alturaArvore(no.getEsquerda());
+        alturaDir = alturaArvore(no.getDireita());
+
+       return Math.max(alturaEsq, alturaDir) + 1;
     }
 }
