@@ -53,6 +53,8 @@ public class Main {
         System.out.print("Altura da arvore: " + alturaArvore(raiz));
 
 
+        System.out.println("Produndidade em arestas do valor B: " + profundidadeDeUmNo(raiz, "B", 0));
+
         sc.close();
     }
 
@@ -142,5 +144,21 @@ public class Main {
         alturaDir = alturaArvore(no.getDireita());
 
        return Math.max(alturaEsq, alturaDir) + 1;
+    }
+
+    public static int profundidadeDeUmNo(No<String> no, String valor, int nivel){
+        if (no == null) return -1;
+
+        if (no.getValor().equals(valor)){
+            return nivel;
+        }
+
+        esquerda = profundidadeDeUmNo(no.getEsquerda(), valor, nivel+1);
+        if (esquerda >= 0) return esquerda;
+
+        direita = profundidadeDeUmNo(no.getDireita(), valor, nivel+1);
+        if (direita >= 0) return direita;
+
+        return -1;
     }
 }
