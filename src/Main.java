@@ -43,7 +43,7 @@ public class Main {
         String valor = sc.next();
 
 
-          if (buscarValor(raiz, "E")) {
+          if (buscarValor(raiz, valor)) {
             System.out.println("Valor encontrado!");
           }
           else{
@@ -54,6 +54,17 @@ public class Main {
 
 
         System.out.println("Produndidade em arestas do valor B: " + profundidadeDeUmNo(raiz, "B", 0));
+
+        System.out.print("Informe o valor que deseja remover na arvore: ");
+        valor = sc.next();
+
+        No<String> noRemovido = removerNoESeusFilhos(raiz, valor);
+        if (noRemovido == null){
+            System.out.println("Arvore vazia!");
+        }
+        else {
+            preOrdem(raiz);
+        }
 
         sc.close();
     }
@@ -160,5 +171,18 @@ public class Main {
         if (direita >= 0) return direita;
 
         return -1;
+    }
+
+    public static No<String> removerNoESeusFilhos(No<String> no, String valor){
+        if (no == null) return null;
+
+        if (no.getValor().equals(valor)){
+            return null;
+        }
+
+        no.setEsquerda(removerNoESeusFilhos(no.getEsquerda(), valor));
+        no.setDireita(removerNoESeusFilhos(no.getDireita(), valor));
+
+        return no;
     }
 }
