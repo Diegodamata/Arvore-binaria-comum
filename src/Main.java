@@ -66,6 +66,11 @@ public class Main {
             preOrdem(raiz);
         }
 
+        System.out.print("Informe o valor que deseja remover na arvore: ");
+        valor = sc.next();
+        removerNoEManterFilhos(raiz, valor);
+        preOrdem(raiz);
+
         sc.close();
     }
 
@@ -182,6 +187,39 @@ public class Main {
 
         no.setEsquerda(removerNoESeusFilhos(no.getEsquerda(), valor));
         no.setDireita(removerNoESeusFilhos(no.getDireita(), valor));
+
+        return no;
+    }
+
+    public static No<String> removerNoEManterFilhos(No<String> no, String valor){
+        if (no == null) return null;
+
+        if (no.getValor().equals(valor)){
+            if (no.getEsquerda() == null && no.getDireita() == null){
+                return null;
+            }
+
+            if (no.getEsquerda() != null && no.getDireita() != null){
+                No<String> noEsquerda = no.getEsquerda();
+                No<String> aux = noEsquerda;
+                while (aux.getEsquerda() != null){
+                    aux = aux.getEsquerda();
+                }
+                aux.setEsquerda(no.getDireita());
+                return noEsquerda;
+            }
+
+            if (no.getEsquerda() != null){
+                return no.getEsquerda();
+            }
+
+            if (no.getDireita() != null){
+                return no.getDireita();
+            }
+        }
+
+        no.setEsquerda(removerNoEManterFilhos(no.getEsquerda(), valor));
+        no.setDireita(removerNoEManterFilhos(no.getDireita(), valor));
 
         return no;
     }
